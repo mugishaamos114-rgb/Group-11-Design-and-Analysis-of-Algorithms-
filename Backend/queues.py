@@ -16,14 +16,20 @@ Circular queue
 from .core import DSError
 
 
+def _check_capacity(capacity):
+    """Capacity must be a whole number of at least 1 (rejects 0, negatives,
+    floats and text, which would otherwise crash with a confusing error)."""
+    if not isinstance(capacity, int) or isinstance(capacity, bool) or capacity < 1:
+        raise DSError("Capacity must be a whole number of at least 1.")
+
+
 class LinearQueue:
     """FIFO queue on a fixed array, no wrap-around.
     enqueue, dequeue, front, size, is_empty, is_full are all O(1);
-    display is O(n)."""
+    display is O(n); clear is O(capacity)."""
 
     def __init__(self, capacity):
-        if capacity < 1:
-            raise DSError("Capacity must be at least 1.")
+        _check_capacity(capacity)
         self._data = [None] * capacity
         self._capacity = capacity
         self._front = 0                # index of the first element
@@ -73,6 +79,16 @@ class LinearQueue:
         """True when the queue says full but there are free slots in front.  O(1)."""
         return self.is_full() and self._front > 0
 
+    def clear(self):
+        """Remove every element and put front/rear back to their start
+        positions.  This also cures the 'false full' state.  O(capacity)."""
+        i = 0
+        while i < self._capacity:
+            self._data[i] = None
+            i += 1
+        self._front = 0
+        self._rear = -1
+
     def capacity(self):
         return self._capacity
 
@@ -104,11 +120,10 @@ class LinearQueue:
 
 class CircularQueue:
     """FIFO queue on a fixed array with wrap-around.
-    All operations O(1) except display O(n)."""
+    All operations O(1) except display O(n) and clear O(capacity)."""
 
     def __init__(self, capacity):
-        if capacity < 1:
-            raise DSError("Capacity must be at least 1.")
+        _check_capacity(capacity)
         self._data = [None] * capacity
         self._capacity = capacity
         self._front = 0
@@ -148,6 +163,16 @@ class CircularQueue:
 
     def is_full(self):
         return self._count == self._capacity
+
+    def clear(self):
+        """Remove every element and reset front/rear.  O(capacity)."""
+        i = 0
+        while i < self._capacity:
+            self._data[i] = None
+            i += 1
+        self._front = 0
+        self._rear = self._capacity - 1
+        self._count = 0
 
     def capacity(self):
         return self._capacity

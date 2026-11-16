@@ -37,13 +37,22 @@ def _ensure_recursion_depth(depth):
         sys.setrecursionlimit(depth + 200)
 
 
+def _check_fib_input(n):
+    """Fibonacci is only defined here for n >= 0.  Without this check a
+    negative n would silently return n itself (the base case k < 2)."""
+    if n < 0:
+        raise ValueError("Fibonacci is not defined for negative numbers.")
+
+
 # ---------------------------------------------------------------------------
 # Fibonacci
 # ---------------------------------------------------------------------------
 
 def fib_naive(n):
     """n-th Fibonacci number by plain recursion.
-    Time O(phi^n) ~ O(1.618^n) (exponential), space O(n) for the call stack."""
+    Time O(phi^n) ~ O(1.618^n) (exponential), space O(n) for the call stack.
+    Rejects negative n."""
+    _check_fib_input(n)
     calls = 0
 
     def fib(k):
@@ -62,7 +71,8 @@ def fib_naive(n):
 def fib_memo(n):
     """n-th Fibonacci number by recursion with memoization (top-down DP).
     Time O(n) - each fib(k) is computed once; space O(n) for the memo array
-    plus O(n) for the call stack."""
+    plus O(n) for the call stack.  Rejects negative n."""
+    _check_fib_input(n)
     _ensure_recursion_depth(n)
     memo = [None] * (n + 1)            # fixed-size memo table, memo[k] = fib(k)
     calls = 0
@@ -85,7 +95,9 @@ def fib_memo(n):
 
 def fib_bottom_up(n):
     """n-th Fibonacci number by bottom-up dynamic programming.
-    Time O(n) loop iterations, space O(1) (we only keep the last two values)."""
+    Time O(n) loop iterations, space O(1) (we only keep the last two values).
+    Rejects negative n."""
+    _check_fib_input(n)
     start = now_ns()
     iterations = 0
     if n < 2:

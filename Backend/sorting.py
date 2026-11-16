@@ -463,9 +463,12 @@ def run_sort(key, data, record_level=RECORD_OFF, seed=12345):
 
     The reported time comes from a run with recording OFF.  If record_level
     is not OFF a second, identical run collects the frames."""
+    if record_level not in (RECORD_OFF, RECORD_PASSES, RECORD_DETAILED):
+        raise ValueError("record_level must be RECORD_OFF, RECORD_PASSES or RECORD_DETAILED.")
     info = find_algorithm(key)
+    quiet = Recorder(RECORD_OFF)       # built BEFORE the clock starts, so setting it up is not timed
     start = now_ns()
-    result, comparisons, moves = info.func(data, Recorder(RECORD_OFF), seed)
+    result, comparisons, moves = info.func(data, quiet, seed)
     elapsed = now_ns() - start
     frames = None
     truncated = False

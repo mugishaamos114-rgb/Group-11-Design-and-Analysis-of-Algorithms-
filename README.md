@@ -2,13 +2,13 @@
 
 
 ## Team
-ROCKDIT MINYIEL AYUAK
-ANYANG JAMES GAI
-MUGISHA AMOS ISRAEL
-WANI SAMSON WILSON
-ESILU BRIAN JOEL
-MUSASIZI JIMMY ERNEST
-SOLOMON 
+ROCKDIT MINYIEL AYUAK //
+ANYANG JAMES GAI //
+MUGISHA AMOS ISRAEL //
+WANI SAMSON WILSON //
+ESILU BRIAN JOEL //
+MUSASIZI JIMMY ERNEST //
+SOLOMON  //
 
 An interactive desktop application for **CSC2107 Design and Analysis of Algorithms**. A user enters their own input, the
 algorithm runs in the back end, and the interface shows the result, the steps taken, the

@@ -1,4 +1,4 @@
-# Algorithm Explorer — CSC2107 Group 11
+# Algorithm Explorer — Group 11
 
 
 ## Team
@@ -8,7 +8,7 @@ MUGISHA AMOS ISRAEL //
 WANI SAMSON WILSON //
 ESILU BRIAN JOEL //
 MUSASIZI JIMMY ERNEST //
-SOLOMON  //
+ONGAR SOLOMON //
 
 An interactive desktop application for **CSC2107 Design and Analysis of Algorithms**. A user enters their own input, the
 algorithm runs in the back end, and the interface shows the result, the steps taken, the
